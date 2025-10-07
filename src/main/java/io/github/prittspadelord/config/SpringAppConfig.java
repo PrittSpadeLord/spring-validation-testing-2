@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
@@ -20,6 +21,7 @@ public class SpringAppConfig {
     }
 
     @Bean
+    @Primary
     public Validator validator(@Autowired LocalValidatorFactoryBean validatorFactoryBean) {
         return validatorFactoryBean.getValidator();
     }
