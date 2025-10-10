@@ -1,9 +1,12 @@
 package io.github.prittspadelord;
 
 import io.github.prittspadelord.config.SpringAppConfig;
-import io.github.prittspadelord.models.Employee;
+import io.github.prittspadelord.models.Character;
+import io.github.prittspadelord.models.LocalSpeciality;
+
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -15,17 +18,21 @@ public class SpringValidationTestingApplication {
 
         Validator validator = context.getBean(Validator.class);
 
-        Employee pritt = new Employee();
+        LocalSpeciality localSpeciality = new LocalSpeciality();
 
-        pritt.setName("");
-        pritt.setEmail("pritt1999");
+        localSpeciality.setName("Dendrobium");
+        localSpeciality.setNation("inazuma");
 
-        Set<ConstraintViolation<Employee>> violations = validator.validate(pritt);
+        Character character = new Character();
+        character.setName("Chiori");
+        character.setLocalSpeciality(localSpeciality);
+
+        Set<ConstraintViolation<Character>> violations = validator.validate(character);
 
         if(violations.isEmpty()) {
             System.out.println("No violations!");
         }
-        else for(ConstraintViolation<Employee> violation: violations) {
+        else for(ConstraintViolation<Character> violation: violations) {
             System.out.println(violation.getPropertyPath().toString() + " " + violation.getMessage());
         }
     }
